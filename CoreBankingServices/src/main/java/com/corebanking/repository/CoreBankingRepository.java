@@ -160,4 +160,22 @@ public class CoreBankingRepository {
                 .addValue("lim", limit);
         return jdbcTemplate.queryForList(sql, params);
     }
+
+    public Map<String, Object> blockAccounts(String senderAccount, String receiverAccount, String reason) {
+        String sql = "SELECT * FROM block_sender_and_receiver_accounts(:senderAcc, :receiverAcc, :reason)";
+        MapSqlParameterSource params = new MapSqlParameterSource()
+                .addValue("senderAcc", senderAccount)
+                .addValue("receiverAcc", receiverAccount)
+                .addValue("reason", reason);
+
+        return jdbcTemplate.query(sql, params, rs -> {
+            if (rs.next()) {
+                Map<String, Object> result = new HashMap<>();
+                result.put("status", rs.getString("out_status"));
+                result.put("message", rs.getString("out_message"));
+                return result;
+            }
+            return null;
+        });
+    }
 }

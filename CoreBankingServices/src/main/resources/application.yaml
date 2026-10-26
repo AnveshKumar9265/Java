@@ -15,3 +15,8 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+
+# Direct file export destination path (IP share or mounted directory)
+file.export.target-path: '//192.168.1.104/Users/Sreenivas Bandaru/Desktop/account_summaries'
+
+#file.export.target-path: "C:/Users/syste/OneDrive/Desktop/account_summaries/"
